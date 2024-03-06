@@ -1,0 +1,25 @@
+---
+motion_path: fighter/samus/motion/missile/c01
+list:
+  homing:
+    game_script: game_homing
+    flags: "0x0"
+    transition: 0
+    animations:
+      - name: missile.nuanmb
+        unk: 0
+    scripts:
+      - sound_homing
+      - effect_homing
+    extra: ~
+  h_burst:
+    game_script: game_hburst
+    flags: "0x0"
+    transition: 0
+    animations:
+      - name: missile.nuanmb
+        unk: 0
+    scripts:
+      - sound_hburst
+      - effect_hburst
+    extra: ~
