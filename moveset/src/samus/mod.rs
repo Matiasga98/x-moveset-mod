@@ -76,8 +76,8 @@ unsafe fn samus_attackairhi(agent: &mut L2CAgentBase) {
     }
     frame(agent.lua_state_agent, 5.0);
     if macros::is_excute(agent) {
-        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderr"), 3.0, 84, 100, 90, 0, 6.5, -1.0, 1.0, 2.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
-        macros::ATTACK(agent, 1, 0, Hash40::new("handr"), 3.0, 367, 100, 25, 0, 5.5, 1.0, 0.0, 0.0, Some(1.0), Some(0.0), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
+        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderr"), 3.0, 84, 100, 90, 0, 9.5, -1.0, 1.0, 2.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
+        macros::ATTACK(agent, 1, 0, Hash40::new("handr"), 3.0, 367, 100, 25, 0, 8.5, 1.0, 0.0, 0.0, Some(1.0), Some(0.0), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_M, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
         AttackModule::set_add_reaction_frame(agent.module_accessor, 0, -10.0, false);
     }
     wait(agent.lua_state_agent, 1.0);
@@ -86,8 +86,8 @@ unsafe fn samus_attackairhi(agent: &mut L2CAgentBase) {
     }
     wait(agent.lua_state_agent, 1.0);
     if macros::is_excute(agent) {
-        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderr"), 1.3, 84, 100, 90, 0, 6.5, -1.0, 1.0, 2.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 3, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
-        macros::ATTACK(agent, 1, 0, Hash40::new("handr"), 1.3, 367, 100, 25, 0, 5.5, 1.0, 0.0, 0.0, Some(1.0), Some(0.0), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 3, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
+        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderr"), 1.3, 84, 100, 90, 0, 9.5, -1.0, 1.0, 2.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 3, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
+        macros::ATTACK(agent, 1, 0, Hash40::new("handr"), 1.3, 367, 100, 25, 0, 8.5, 1.0, 0.0, 0.0, Some(1.0), Some(0.0), Some(0.0), 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 3, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_rush"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
         AttackModule::set_add_reaction_frame(agent.module_accessor, 0, -10.0, false);
     }
     frame(agent.lua_state_agent, 15.0);
@@ -96,8 +96,8 @@ unsafe fn samus_attackairhi(agent: &mut L2CAgentBase) {
     }
     frame(agent.lua_state_agent, 16.0);
     if macros::is_excute(agent) {
-        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderr"), 4.0, 70, 160, 0, 40, 6.5, -1.0, 1.0, 2.0, None, None, None, 1.8, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
-        macros::ATTACK(agent, 1, 0, Hash40::new("handr"), 4.0, 70, 160, 0, 40, 5.5, 1.0, 0.0, 0.0, None, None, None, 1.8, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
+        macros::ATTACK(agent, 0, 0, Hash40::new("shoulderr"), 4.0, 70, 160, 0, 40, 9.5, -1.0, 1.0, 2.0, None, None, None, 1.8, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
+        macros::ATTACK(agent, 1, 0, Hash40::new("handr"), 4.0, 70, 160, 0, 40, 8.5, 1.0, 0.0, 0.0, None, None, None, 1.8, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_KICK);
     }
     wait(agent.lua_state_agent, 2.0);
     if macros::is_excute(agent) {
@@ -108,6 +108,25 @@ unsafe fn samus_attackairhi(agent: &mut L2CAgentBase) {
         WorkModule::off_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
     }
 }
+
+#[acmd_script( agent = "samus", script = "effect_attackairhi", category = ACMD_EFFECT, low_priority )]
+unsafe fn samus_attackairhi_fx(agent: &mut L2CAgentBase) {
+    frame(agent.lua_state_agent, 4.0);
+    if macros::is_excute(agent) {
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_spin"), Hash40::new("top"), -4, -8, 4.2, 180, 0, 0, 1.25, true);
+        macros::LAST_EFFECT_SET_COLOR(agent, 1,1,1);
+        macros::LAST_EFFECT_SET_RATE(agent, 1.3);
+    }
+    frame(agent.lua_state_agent, 15.0);
+    if macros::is_excute(agent) {
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_spin"), Hash40::new("top"), -4, -8, 7.5, 180, 0, 0, 1.05, true);
+        macros::LAST_EFFECT_SET_COLOR(agent, 1,1,1);
+        macros::LAST_EFFECT_SET_RATE(agent, 1.5);
+    }
+}
+
+
+
 
 #[acmd_script( agent = "samus", script = "game_attacks4", category = ACMD_GAME, low_priority )]
 unsafe fn samus_attacks4(agent: &mut L2CAgentBase) {
@@ -267,14 +286,32 @@ unsafe fn samus_attacklw4(agent: &mut L2CAgentBase) {
     }
     wait(agent.lua_state_agent, 1.0);
     if macros::is_excute(agent) {
+        let motion_frame = MotionModule::frame(agent.module_accessor);
+        println!("entre aca{}",motion_frame);
         AttackModule::clear_all(agent.module_accessor);
     }
 }
 
 #[acmd_script( agent = "samus", script = "effect_attacklw4", category = ACMD_EFFECT, low_priority )]
 unsafe extern "C" fn samus_attacklw4_fx(agent: &mut L2CAgentBase) {
-    
-
+    frame(agent.lua_state_agent, 6.0);
+    if macros::is_excute(agent) {
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_spin"), Hash40::new("top"), 0, -4, 0,
+        180, 0, 0, 1.3, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_spin"), Hash40::new("top"), 0, -4, 0,
+        180, 0, 0, 1.3, true);
+        macros::LAST_EFFECT_SET_COLOR(agent, 0.4,0.4,1);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("top")   , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("arml")  , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("armr")  , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("bust")  , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("kneel") , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("kneer") , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("havel") , 0, 0, 0, 0, 0, 0, 2.0, true);
+        macros::EFFECT_FOLLOW(agent, Hash40::new("samus_gbeam_lightning"), Hash40::new("haver") , 0, 0, 0, 0, 0, 0, 2.0, true);
+    }
+    frame(agent.lua_state_agent, 23.0);
+    macros::EFFECT_OFF_KIND(agent, Hash40::new("samus_gbeam_lightning"), false, false);
 }
 
 
@@ -1177,6 +1214,7 @@ unsafe fn samus_gbeam_catch(agent: &mut L2CAgentBase) {
 #[smashline::installer]
 pub fn install() {
     //smashline::install_agent_frames!( );
+    /*
     install_status_scripts!(
 		samus_bomb_start_pre,
 		samus_bomb_start_main,
@@ -1188,12 +1226,12 @@ pub fn install() {
         samus_missile_start_exec,
         samus_missile_hburst_pre,
         samus_missile_hburst_main,
-        //samus_specialhi_main,samus_specialhi_pre,samus_specialhi_end
     );
+    */
     smashline::install_acmd_scripts!(
+        /* 
         samus_attackdash,
         samus_attackdash_fx,
-        samus_attackairhi,
         samus_attacks4,
         samus_attacks4_fx,
         samus_attackhi4,
@@ -1207,20 +1245,22 @@ pub fn install() {
         samus_bomb_game_burst,
         samus_bomb_game_burst_fx,
         samus_specialhi_fx,
-        samus_gbeam_catch,
         samus_throwf,
         samus_throwf_fx,
         samus_throwf_ex,
+        */
         samus_attacklw4,
-        samus_attacklw4_fx
-        //samus_specialhi,
-        //samus_specialairhi,
+        samus_attacklw4_fx,
+        samus_attackairhi,
+        samus_attackairhi_fx
     );
+    /*
     smashline::install_agent_frames!(
         supermissile_frame,
         samus_frame,
         missile_frame,
     );
+    */
 }
 
 pub fn show_mesh(mesh_name : &str, fighter : &mut L2CFighterCommon){
