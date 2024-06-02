@@ -1,20 +1,18 @@
 use {
     smash::{
-        app::{lua_bind::*, sv_animcmd::*, *},
-        hash40,
-        lib::lua_const::*,
         lua2cpp::*,
         phx::*,
+        app::{sv_animcmd::*, lua_bind::*, *},
+        lib::{lua_const::*, L2CValue, L2CAgent},
+		hash40
     },
     smash_script::*,
-    smashline::*,
+	smashline::*
 };
-use std::ops::Neg;
 
-use smash::{lib::L2CValue, app::lua_bind::EffectModule::is_exist_effect};
+pub const FIGHTER_SAMUS_GENERATE_ARTICLE_WEB :i32 = 0x9;
 
-#[acmd_script( agent = "samus", script = "game_attackdash", category = ACMD_GAME, low_priority )]
-unsafe fn samus_attackdash(agent: &mut L2CAgentBase) {
+unsafe extern "C" fn samus_attackdash(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 10.0);
     for _ in 0..5 {
     if macros::is_excute(agent) {
@@ -38,7 +36,8 @@ if macros::is_excute(agent) {
 }
 }
 
-#[acmd_script( agent = "samus", script = "effect_attackdash", category = ACMD_EFFECT, low_priority )]
+
+
 unsafe extern "C" fn samus_attackdash_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 6.0);
     if macros::is_excute(agent) {
@@ -68,10 +67,11 @@ unsafe extern "C" fn samus_attackdash_fx(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "game_attackairhi", category = ACMD_GAME, low_priority )]
-unsafe fn samus_attackairhi(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_attackairhi(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 3.0);
     if macros::is_excute(agent) {
+        ArticleModule::generate_article(agent.module_accessor, FIGHTER_SAMUS_GENERATE_ARTICLE_WEB, false, -1);
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
     }
     frame(agent.lua_state_agent, 5.0);
@@ -109,8 +109,8 @@ unsafe fn samus_attackairhi(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "effect_attackairhi", category = ACMD_EFFECT, low_priority )]
-unsafe fn samus_attackairhi_fx(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_attackairhi_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 4.0);
     if macros::is_excute(agent) {
         macros::EFFECT_FOLLOW(agent, Hash40::new("samus_spin"), Hash40::new("top"), -4, -8, 4.2, 180, 0, 0, 1.25, true);
@@ -128,8 +128,8 @@ unsafe fn samus_attackairhi_fx(agent: &mut L2CAgentBase) {
 
 
 
-#[acmd_script( agent = "samus", script = "game_attacks4", category = ACMD_GAME, low_priority )]
-unsafe fn samus_attacks4(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_attacks4(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 6.0);
     if macros::is_excute(agent) {
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
@@ -152,7 +152,7 @@ unsafe fn samus_attacks4(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "effect_attacks4", category = ACMD_EFFECT, low_priority )]
+
 unsafe extern "C" fn samus_attacks4_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 2.0);
     if macros::is_excute(agent) {
@@ -181,8 +181,8 @@ unsafe extern "C" fn samus_attacks4_fx(agent: &mut L2CAgentBase) {
 }
 
 
-#[acmd_script( agent = "samus", script = "game_attackhi4", category = ACMD_GAME, low_priority )]
-unsafe fn samus_attackhi4(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_attackhi4(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 13.0);
     if macros::is_excute(agent) {
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
@@ -205,7 +205,7 @@ unsafe fn samus_attackhi4(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "effect_attackhi4", category = ACMD_EFFECT, low_priority )]
+
 unsafe extern "C" fn samus_attackhi4_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 6.0);
     if macros::is_excute(agent) {
@@ -261,8 +261,8 @@ unsafe extern "C" fn samus_attackhi4_fx(agent: &mut L2CAgentBase) {
 }
 
 
-#[acmd_script( agent = "samus", script = "game_attacklw4", category = ACMD_GAME, low_priority )]
-unsafe fn samus_attacklw4(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_attacklw4(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 3.0);
     if macros::is_excute(agent) {
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
@@ -292,7 +292,7 @@ unsafe fn samus_attacklw4(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "effect_attacklw4", category = ACMD_EFFECT, low_priority )]
+
 unsafe extern "C" fn samus_attacklw4_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 6.0);
     if macros::is_excute(agent) {
@@ -317,7 +317,7 @@ unsafe extern "C" fn samus_attacklw4_fx(agent: &mut L2CAgentBase) {
 
 
 
-#[acmd_script( agent = "samus", script = "game_attackhi3", category = ACMD_GAME, low_priority )]
+
 unsafe extern "C" fn samus_attackhi3(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_RYU_INSTANCE_WORK_ID_FLAG_FINAL_HIT_CANCEL);
@@ -362,7 +362,7 @@ unsafe extern "C" fn samus_attackhi3(agent: &mut L2CAgentBase) {
 }
 
 
-#[acmd_script( agent = "samus", script = "effect_attackhi3", category = ACMD_EFFECT, low_priority )]
+
 unsafe extern "C" fn samus_attackhi3_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 5.0);
     if macros::is_excute(agent) {
@@ -380,8 +380,8 @@ unsafe extern "C" fn samus_attackhi3_fx(agent: &mut L2CAgentBase) {
 }
 
 
-#[acmd_script( agent = "samus", script = "game_throwf", category = ACMD_GAME, low_priority )]
-unsafe fn samus_throwf(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_throwf(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         macros::ATTACK_ABS(agent, *FIGHTER_ATTACK_ABSOLUTE_KIND_THROW, 0, 10.0, 42, 55, 0, 60, 0.0, 1.0, *ATTACK_LR_CHECK_F, 0.0, true, Hash40::new("collision_attr_ice"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_FREEZE, *ATTACK_REGION_THROW);
         macros::ATTACK_ABS(agent, *FIGHTER_ATTACK_ABSOLUTE_KIND_CATCH, 0, 3.0, 361, 100, 0, 50, 0.0, 1.0, *ATTACK_LR_CHECK_F, 0.0, true, Hash40::new("collision_attr_ice"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_FREEZE, *ATTACK_REGION_THROW);
@@ -402,8 +402,8 @@ unsafe fn samus_throwf(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "effect_throwf", category = ACMD_EFFECT, low_priority )]
-unsafe fn samus_throwf_fx(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_throwf_fx(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 20.0);
     if macros::is_excute(agent) {
         macros::EFFECT_FOLLOW(agent, Hash40::new("sys_ice"), Hash40::new("top"), 0, 20, 
@@ -431,8 +431,8 @@ unsafe fn samus_throwf_fx(agent: &mut L2CAgentBase) {
     }
 }
 
-#[acmd_script( agent = "samus", script = "expression_throwf", category = ACMD_EXPRESSION, low_priority )]
-unsafe fn samus_throwf_ex(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_throwf_ex(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 16.0);
     if macros::is_excute(agent) {
         ControlModule::set_rumble(agent.module_accessor, Hash40::new("rbkind_attackm"), 0, false, *BATTLE_OBJECT_ID_INVALID as u32);
@@ -442,7 +442,7 @@ unsafe fn samus_throwf_ex(agent: &mut L2CAgentBase) {
 
 
 
-#[acmd_script( agent = "samus", script = "effect_specialairhi", category = ACMD_EFFECT, low_priority )]
+
 unsafe extern "C" fn samus_specialhi_fx(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         //macros::EFFECT(agent, Hash40::new("sys_crown"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, false);
@@ -460,8 +460,8 @@ unsafe extern "C" fn samus_specialhi_fx(agent: &mut L2CAgentBase) {
 }
 
 
-#[status_script(agent = "samus", status = FIGHTER_STATUS_KIND_SPECIAL_HI, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_PRE)]
-unsafe fn samus_specialhi_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_specialhi_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
     StatusModule::init_settings(
         fighter.module_accessor, 
         smash::app::SituationKind(*SITUATION_KIND_NONE),
@@ -489,10 +489,11 @@ unsafe fn samus_specialhi_pre(fighter: &mut L2CFighterCommon) -> L2CValue {
     return 0.into();
 }
 
-#[status_script(agent = "samus", status = FIGHTER_STATUS_KIND_SPECIAL_HI, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
+
 unsafe extern "C" fn samus_specialhi_main(fighter: &mut L2CFighterCommon) -> L2CValue {
 	//ArticleModule::generate_article(fighter.module_accessor, *FIGHTER_SAMUS_GENERATE_ARTICLE_BOMB, false, -1);
     //MotionModule::change_motion(fighter.module_accessor, Hash40::new("special_air_hi"), 0.0, 1.0, false, 0.0, false, false);
+    /*/
     WorkModule::set_int64(fighter.module_accessor, 0xa28f17495, *FIGHTER_STATUS_SUPER_JUMP_PUNCH_WORK_INT_MOTION_KIND);
     WorkModule::set_int64(fighter.module_accessor, 0xed8a31e01, *FIGHTER_STATUS_SUPER_JUMP_PUNCH_WORK_INT_MOTION_KIND_AIR);
     WorkModule::set_float(fighter.module_accessor, 0.25, *FIGHTER_STATUS_SUPER_JUMP_PUNCH_WORK_FLOAT_CONST_LR_STICK_X);
@@ -507,41 +508,53 @@ unsafe extern "C" fn samus_specialhi_main(fighter: &mut L2CFighterCommon) -> L2C
     WorkModule::set_int(fighter.module_accessor, *FIGHTER_STATUS_KIND_FALL_SPECIAL, *FIGHTER_STATUS_SUPER_JUMP_PUNCH_WORK_INT_STATUS_KIND_END);
     fighter.super_jump_punch(L2CValue::Void());
     WorkModule::unable_transition_term(fighter.module_accessor, *FIGHTER_STATUS_TRANSITION_TERM_ID_FALL);
+    */
+    /* 
+    fighter.agent.clear_lua_stack();
+    (&mut L2CValue::new_int(*FIGHTER_KINETIC_ENERGY_ID_MOTION as u64));
+    fighter.agent.push_lua_stack(&mut L2CValue::new_num(0.66));
+    sv_kinetic_energy::set_speed_mul(fighter.lua_state_agent);
+    KineticModule::enable_energy(fighter.module_accessor, *FIGHTER_KINETIC_ENERGY_ID_MOTION);
+    */
+
     fighter.sub_shift_status_main(L2CValue::Ptr(samus_specialhi_main_loop as *const () as _))
 }
 
 unsafe extern "C" fn samus_specialhi_main_loop(fighter: &mut L2CFighterCommon) -> L2CValue {
-    fighter.super_jump_punch_main();
+    let status_frame = fighter.global_table[0xe].get_f32();
+    if (status_frame >55.0){
+        //return call_original!()(fighter);
+    }
     return 0.into();
 }
 
-#[status_script(agent = "samus", status = FIGHTER_STATUS_KIND_SPECIAL_HI, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_END)]
-unsafe fn samus_specialhi_end(fighter: &mut L2CFighterCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_specialhi_end(fighter: &mut L2CFighterCommon) -> L2CValue {
     fighter.super_jump_punch_end(L2CValue::Ptr(L2CFighterCommon_super_jump_punch_reset_common_condition as *const () as _));
     return 0.into();
 }
 
 
-#[acmd_script( agent = "samus", script = "game_specialhi", category = ACMD_GAME, low_priority )]
-unsafe fn samus_specialhi(agent: &mut L2CAgentBase) {
-    if macros::is_excute(agent) {
-        frame(agent.lua_state_agent, 1.0);
-        StatusModule::change_status_request_from_script(agent.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_LW.into(), false.into());
-    }
-}
-#[acmd_script( agent = "samus", script = "game_specialairhi", category = ACMD_GAME, low_priority )]
-unsafe fn samus_specialairhi(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_specialhi(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         frame(agent.lua_state_agent, 1.0);
         StatusModule::change_status_request_from_script(agent.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_LW.into(), false.into());
     }
 }
 
+unsafe extern "C" fn samus_specialairhi(agent: &mut L2CAgentBase) {
+    if macros::is_excute(agent) {
+        frame(agent.lua_state_agent, 1.0);
+        StatusModule::change_status_request_from_script(agent.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_LW.into(), false.into());
+    }
+}
 
 
 
-#[acmd_script( agent = "samus_bomb", script = "game_fall", category = ACMD_GAME, low_priority )]
-unsafe fn samus_bomb_game_regular(agent: &mut L2CAgentBase) {
+
+
+unsafe extern "C" fn samus_bomb_game_regular(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         frame(agent.lua_state_agent, 5.0);
         //macros::ATTACK(agent, 0, 0, Hash40::new("top"),  6.0, 80, 70, 0, 70, 5.0, 2.3, 0.0, 0.0, None, None, None, 1.5, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, true, true, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_fire"), *ATTACK_SOUND_LEVEL_S, *COLLISION_SOUND_ATTR_FIRE, *ATTACK_REGION_NONE);
@@ -549,8 +562,8 @@ unsafe fn samus_bomb_game_regular(agent: &mut L2CAgentBase) {
         AttackModule::enable_safe_pos(agent.module_accessor);
     }
 }
-#[acmd_script( agent = "samus_bomb", script = "game_burstattack", category = ACMD_GAME, low_priority )]
-unsafe fn samus_bomb_game_burst(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_bomb_game_burst(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 1.0);
     let facing = PostureModule::lr(agent.module_accessor);
        
@@ -575,8 +588,8 @@ unsafe fn samus_bomb_game_burst(agent: &mut L2CAgentBase) {
     }
     
 }
-#[acmd_script( agent = "samus_bomb", script = "effect_burstattack", category = ACMD_EFFECT, low_priority )]
-unsafe fn samus_bomb_game_burst_fx(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_bomb_game_burst_fx(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         //macros::EFFECT_FOLLOW(agent, Hash40::new("sys_ice"), Hash40::new("top"), 0, 0, 0,
         // 0, 0, 0, 1.0, true);
@@ -584,7 +597,7 @@ unsafe fn samus_bomb_game_burst_fx(agent: &mut L2CAgentBase) {
     }
 }
 
-#[status_script(agent = "samus_bomb", status = WEAPON_SAMUS_BOMB_STATUS_KIND_FALL, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_PRE)]
+
 unsafe extern "C" fn samus_bomb_start_pre(weapon: &mut L2CWeaponCommon) -> L2CValue {
 	StatusModule::init_settings(
 		weapon.module_accessor, 
@@ -601,8 +614,8 @@ unsafe extern "C" fn samus_bomb_start_pre(weapon: &mut L2CWeaponCommon) -> L2CVa
 	return 0.into();
 }
 
-#[status_script(agent = "samus_bomb", status = WEAPON_SAMUS_BOMB_STATUS_KIND_FALL, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn samus_bomb_start_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_bomb_start_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
 	MotionModule::change_motion(weapon.module_accessor, Hash40::new("fall"), 0.0, 1.0, false, 0.0, false, false);
 	weapon.fastshift(L2CValue::Ptr(samus_bomb_start_main_loop as *const () as _))
 }
@@ -676,13 +689,13 @@ unsafe extern "C" fn samus_bomb_start_main_loop(weapon: &mut L2CWeaponCommon) ->
     return 0.into();
 }
 
-#[status_script(agent = "samus_bomb", status = WEAPON_SAMUS_BOMB_STATUS_KIND_FALL, condition = LUA_SCRIPT_STATUS_FUNC_INIT_STATUS)]
+
 unsafe extern "C" fn samus_bomb_fall_init(weapon: &mut L2CWeaponCommon) -> L2CValue {
     return 0.into();
 }
 
 
-#[status_script(agent = "samus_bomb", status = WEAPON_SAMUS_BOMB_STATUS_KIND_BURST_ATTACK, condition = LUA_SCRIPT_STATUS_FUNC_INIT_STATUS)]
+
 unsafe extern "C" fn samus_bomb_hburst_init(weapon: &mut L2CWeaponCommon) -> L2CValue {
     WorkModule::set_int(weapon.module_accessor,1, *WEAPON_SAMUS_BOMB_INSTANCE_WORK_ID_INT_BOMBJUMP);
     return 0.into();
@@ -693,8 +706,8 @@ unsafe extern "C" fn samus_bomb_hburst_init(weapon: &mut L2CWeaponCommon) -> L2C
 
 
 
- #[acmd_script( agent = "samus", script = "game_specialairs", category = ACMD_GAME, low_priority )]
- unsafe fn samus_specialairs(agent: &mut L2CAgentBase) {
+ 
+ unsafe extern "C" fn samus_specialairs(agent: &mut L2CAgentBase) {
     println!("entre aca");
     frame(agent.lua_state_agent, 3.0);
     if macros::is_excute(agent) {
@@ -745,8 +758,8 @@ unsafe extern "C" fn samus_bomb_hburst_init(weapon: &mut L2CWeaponCommon) -> L2C
  
  
 
-#[status_script(agent = "samus_supermissile", status = WEAPON_SAMUS_SUPERMISSILE_STATUS_KIND_READY, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn samus_supermissile_start_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_supermissile_start_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
 	MotionModule::change_motion(weapon.module_accessor, Hash40::new("ready"), 0.0, 1.0, false, 0.0, false, false);
 	//IS_CONTROLLING_MISSILE = true;
     weapon.fastshift(L2CValue::Ptr(samus_supermissile_start_main_loop as *const () as _))
@@ -792,12 +805,11 @@ unsafe extern "C" fn samus_supermissile_start_main_loop(weapon: &mut L2CWeaponCo
                 speed_y = 0.0;
             }
         }
-
         if status_frame <= 15.0 {
             speed_x = if facing == 1.0 { 2.0 } else { -2.00 };
             speed_y = 0.0;
             //WAS_SLOW_BEFORE_MISSILE = SlowModule::is_slow(owner_boma);
-            MotionModule::set_rate(owner_boma, 0.0);
+            //MotionModule::set_rate(owner_boma, 0.0);
             //SlowModule::set(owner_boma, 0, 60, 180, true, 0);
             //StatusModule::change_status_request_from_script(owner_boma,FIGHTER_STATUS_KIND_DEMO.into(),false.into());
         }
@@ -821,20 +833,23 @@ unsafe extern "C" fn samus_supermissile_start_main_loop(weapon: &mut L2CWeaponCo
 }
 
 
-#[weapon_frame( agent = WEAPON_KIND_SAMUS_SUPERMISSILE )]
-fn supermissile_frame(weapon: &mut L2CFighterBase)  {
+static mut supermissile_frames: i32 = 0;
+static mut supermissile_alive: bool = false;
+unsafe extern "C" fn supermissile_frame(weapon: &mut L2CFighterBase)  {
     unsafe {
         let supermissile_status = StatusModule::status_kind(weapon.module_accessor);
-        if supermissile_status == WEAPON_SAMUS_SUPERMISSILE_STATUS_KIND_S_BURST {
-            let owner_boma = &mut *sv_battle_object::module_accessor((WorkModule::get_int(weapon.module_accessor, *WEAPON_INSTANCE_WORK_ID_INT_LINK_OWNER)) as u32);
-            MotionModule::set_rate(owner_boma, 1.0);
+        if supermissile_status == WEAPON_SAMUS_SUPERMISSILE_STATUS_KIND_READY {
+            supermissile_alive = true;
+        }
+        else{
+            supermissile_alive = false;
         }
     }
 }
 
 
-#[acmd_script( agent = "samus_missile", script = "game_homing", category = ACMD_GAME, low_priority )]
-unsafe fn samus_missile_game_homing(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_missile_game_homing(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 1.0);
     if macros::is_excute(agent) {
         macros::ATTACK(agent, 0, 0, Hash40::new("top"), 4.0, 70, 40, 0, 80,
@@ -843,12 +858,12 @@ unsafe fn samus_missile_game_homing(agent: &mut L2CAgentBase) {
     
 }
 
-#[acmd_script( agent = "samus_missile", script = "game_hburst", category = ACMD_GAME, low_priority )]
-unsafe fn samus_missile_game_hburst(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_missile_game_hburst(agent: &mut L2CAgentBase) {
     
 }
 
-#[status_script(agent = "samus_missile", status = WEAPON_SAMUS_MISSILE_STATUS_KIND_HOMING, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_PRE)]
+
 unsafe extern "C" fn samus_missile_start_pre(weapon: &mut L2CWeaponCommon) -> L2CValue {
     //println!("pre homing");
 	StatusModule::init_settings(
@@ -867,8 +882,8 @@ unsafe extern "C" fn samus_missile_start_pre(weapon: &mut L2CWeaponCommon) -> L2
 	return 0.into();
 }
 
-#[status_script(agent = "samus_missile", status = WEAPON_SAMUS_MISSILE_STATUS_KIND_HOMING, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn samus_missile_start_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_missile_start_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
     //MotionModule::change_motion(weapon.module_accessor, Hash40::new("homing"), 0.0, 1.0, false, 0.0, false, false);
 	//println!("main homing");
     weapon.fastshift(L2CValue::Ptr(samus_missile_start_main_loop as *const () as _))
@@ -878,8 +893,8 @@ unsafe extern "C" fn samus_missile_start_main_loop(weapon: &mut L2CWeaponCommon)
     return 0.into();
 }
 
-#[status_script(agent = "samus_missile", status = WEAPON_SAMUS_MISSILE_STATUS_KIND_HOMING, condition = LUA_SCRIPT_STATUS_FUNC_EXEC_STATUS)]
-unsafe fn samus_missile_start_exec(weapon: &mut L2CWeaponCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_missile_start_exec(weapon: &mut L2CWeaponCommon) -> L2CValue {
     //println!("exec homing");
 	MotionModule::change_motion(weapon.module_accessor, Hash40::new("homing"), 0.0, 1.0, false, 0.0, false, false);
 	//StatusModule::change_status_request_from_script(weapon.module_accessor, WEAPON_SAMUS_MISSILE_STATUS_KIND_H_BURST.into(), false.into());
@@ -896,12 +911,12 @@ unsafe extern "C" fn samus_missile_start_exec_loop(weapon: &mut L2CWeaponCommon)
     //println!("exec loop homing");
     missile_x = PostureModule::pos_x(weapon.module_accessor);
     missile_y = PostureModule::pos_y(weapon.module_accessor);
-    let facing = PostureModule::lr(weapon.module_accessor);
-    let status_frame = weapon.global_table[0xe].get_f32();
-    let mut speed_x = if facing == 1.0 { 2.0 } else { -2.0 };
+    let facing: f32 = PostureModule::lr(weapon.module_accessor);
+    let status_frame: f32 = weapon.global_table[0xe].get_f32();
+    let mut speed_x: f32 = if facing == 1.0 { 2.0 } else { -2.0 };
     if GroundModule::is_touch(weapon.module_accessor, *GROUND_TOUCH_FLAG_SIDE as u32){
         PostureModule::reverse_lr(weapon.module_accessor);
-        speed_x = speed_x.neg();
+        speed_x = -speed_x;
     }
     if status_frame == 180.0 {
 		StatusModule::change_status_request_from_script(weapon.module_accessor, WEAPON_SAMUS_MISSILE_STATUS_KIND_H_BURST.into(), false.into());
@@ -924,8 +939,16 @@ unsafe extern "C" fn samus_missile_start_exec_loop(weapon: &mut L2CWeaponCommon)
     return 0.into();
 }
 
+//unsafe extern "C" fn wolf_special_s_start_main(fighter: &mut L2CFighterCommon) -> L2CValue {
+    // If flag is on, activate damage multiplier and turn flag off
+    /*if WorkModule::is_flag(fighter.module_accessor, FIGHTER_WOLF_INSTANCE_WORK_ID_FLAG_SPECIAL_S_COMMAND) {
+        AttackModule::set_power_up(fighter.module_accessor, 1.5);
+        WorkModule::off_flag(fighter.module_accessor, FIGHTER_WOLF_INSTANCE_WORK_ID_FLAG_SPECIAL_S_COMMAND)
+    }*/
+    // Run original code of special_s status
+    //original!(fighter)
+//}
 
-#[status_script(agent = "samus_missile", status = WEAPON_SAMUS_MISSILE_STATUS_KIND_H_BURST, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_PRE)]
 unsafe extern "C" fn samus_missile_hburst_pre(weapon: &mut L2CWeaponCommon) -> L2CValue {
     //println!("pre hburst");
 	StatusModule::init_settings(
@@ -944,8 +967,8 @@ unsafe extern "C" fn samus_missile_hburst_pre(weapon: &mut L2CWeaponCommon) -> L
 }
 
 
-#[status_script(agent = "samus_missile", status = WEAPON_SAMUS_MISSILE_STATUS_KIND_H_BURST, condition = LUA_SCRIPT_STATUS_FUNC_STATUS_MAIN)]
-unsafe fn samus_missile_hburst_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
+
+unsafe extern "C" fn samus_missile_hburst_main(weapon: &mut L2CWeaponCommon) -> L2CValue {
 	//MotionModule::change_motion(weapon.module_accessor, Hash40::new("h_burst"), 0.0, 1.0, false, 0.0, false, false);
 	MotionModule::change_motion(weapon.module_accessor, Hash40::new("homing"), 0.0, 1.0, false, 0.0, false, false);
     //println!("main hburst");
@@ -1055,8 +1078,8 @@ unsafe extern "C" fn samus_missile_hburst_main_loop(weapon: &mut L2CWeaponCommon
 
 static mut previ_status: i32 = 50;
 static mut prev_motion: u64 = 50;
-#[weapon_frame( agent = WEAPON_KIND_SAMUS_MISSILE )]
-fn missile_frame(weapon: &mut L2CFighterBase)  {
+
+unsafe extern "C" fn missile_frame(weapon: &mut L2CFighterBase)  {
     unsafe {
         let missile_status = StatusModule::status_kind(weapon.module_accessor);
         //println!("status : {}",missile_status);
@@ -1085,8 +1108,8 @@ static mut cshot_frames: i32 = 0;
 static mut cshot_charge : f32 = 0.0;
 static mut cshot_effect : u64  = 0;
 static mut cshot_msg : u64 = 0;
-#[weapon_frame( agent = WEAPON_KIND_SAMUS_CSHOT )]
-fn cshot_frame(weapon: &mut L2CFighterBase)  {
+
+unsafe extern "C" fn cshot_frame(weapon: &mut L2CFighterBase)  {
     unsafe {
         let cshot_status = StatusModule::status_kind(weapon.module_accessor);
         println!("status : {}",cshot_status);
@@ -1131,8 +1154,8 @@ fn cshot_frame(weapon: &mut L2CFighterBase)  {
 }
 
 
-#[fighter_frame( agent = FIGHTER_KIND_SAMUS )]
-fn samus_frame(fighter: &mut L2CFighterCommon) {
+
+unsafe extern "C" fn samus_frame(fighter: &mut L2CFighterCommon) {
     unsafe {
         //if ControlModule::check_button_on(fighter.module_accessor, *CONTROL_PAD_BUTTON_APPEAL_HI){
         //    StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_STATUS_KIND_GIMMICK_SPRING_JUMP.into(), false.into());
@@ -1146,7 +1169,7 @@ fn samus_frame(fighter: &mut L2CFighterCommon) {
         let motion = MotionModule::motion_kind(fighter.module_accessor);
         let motion_frame = MotionModule::frame(fighter.module_accessor);
 
-
+        
         ArticleModule::set_visibility_whole(fighter.module_accessor, *FIGHTER_SAMUS_GENERATE_ARTICLE_CSHOT, false, ArticleOperationTarget(*ARTICLE_OPE_TARGET_ALL));
         if cshot_shooting{
             if cshot_msg == 1 {
@@ -1219,29 +1242,37 @@ fn samus_frame(fighter: &mut L2CFighterCommon) {
             missile_frames = 0;
         }
 
-        if missile_alive && missile_frames < 180{
+        if supermissile_frames >0{
+            if supermissile_alive {
+                supermissile_frames-=1;
+                if supermissile_frames == 140{
+                    MotionModule::set_rate(fighter.module_accessor, 0.0);
+                }
+                else if supermissile_frames == 0 {
+                    supermissile_alive = false;
+                    MotionModule::set_rate(fighter.module_accessor, 1.0);
+                }
+            }
+            else if MotionModule::rate(fighter.module_accessor)==0.0{
+                MotionModule::set_rate(fighter.module_accessor, 1.0);
+            }
             
         }
-
+        
+        
 
         if should_go_into_web_jump(x_status,prev_status,prev_prev_status) {
             println!("BOMB JUMP INTO SP HI");
             StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_HI.into(), false.into());
         }
         else if should_go_into_flash_laser(x_status, prev_status, prev_prev_status) {
-            //KineticModule::clear_speed_all(fighter.module_accessor);
-            //println!("Status {}",x_status);
-            //println!("PrevStatus {}",prev_status);
-            //println!("PrevStatus 2 {}",prev3_status);
-            //println!("PrevStatus 3 {}",prev4_status);
-            //println!("SP LW INTO SP S");
             println!("going to flash laser");
             StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2G.into(), false.into());
+            supermissile_frames = 160;
         }
         else if should_go_into_metal_anchor(x_status, prev_status, prev_prev_status) {
             println!("going to metal anchor");
             StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2A.into(), false.into());
-            //MotionModule::change_motion(fighter.module_accessor, Hash40::new("special_air_s"), 0.0, 1.0, false, 0.0, false, false);
         }
         else if should_cancel_metal_anchor(x_status,prev_status,situation) {
             println!("cancelling metal anchor");
@@ -1249,12 +1280,20 @@ fn samus_frame(fighter: &mut L2CFighterCommon) {
             MotionModule::change_motion(fighter.module_accessor, Hash40::new("landing_air_lw"), 0.0, 1.0, false, 0.0, false, false);
         }
         else if should_slow_metal_anchor_landing(x_status, prev_status) {
+            println!("SLOWING DOWN METAL ANCHOR");
             MotionModule::set_rate(fighter.module_accessor, 0.5);
         }
+        
         else if should_go_into_rolling_shield(x_status, prev_status, prev_prev_status){
             println!("going to rolling shield");
-            StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_S.into(), false.into());
+            if situation == SITUATION_KIND_GROUND {
+                StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S1G.into(), false.into());
+            }
+            else {
+                StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S1A.into(), false.into());
+            }
         }
+        
         else if should_go_into_web_shoot(x_status, prev_status, prev_prev_status){
             println!("SP HI INTO SP LW");
             StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_LW.into(), false.into());
@@ -1275,61 +1314,79 @@ fn samus_frame(fighter: &mut L2CFighterCommon) {
 //status : 444
 //FIGHTER_STATUS_KIND_GIMMICK_JUMP_BOARD_JUMP
 //motion : 66644525903
-#[acmd_script( agent = "samus_gbeam", script = "effect_catch", category = ACMD_EFFECT, low_priority )]
-unsafe fn samus_gbeam_catch(agent: &mut L2CAgentBase) {
+
+unsafe extern "C" fn samus_gbeam_catch(agent: &mut L2CAgentBase) {
     
 }
 
-//#[smashline::installer]
+
+
 pub fn install() {
-    //smashline::install_agent_frames!( );
-    
-    install_status_scripts!(
-		samus_bomb_start_pre,
-		samus_bomb_start_main,
-        samus_bomb_hburst_init,
-        samus_bomb_fall_init,
-        samus_supermissile_start_main,
-        samus_missile_start_pre,
-        samus_missile_start_main,
-        samus_missile_start_exec,
-        samus_missile_hburst_pre,
-        samus_missile_hburst_main,
-    );
-    
-    smashline::install_acmd_scripts!(
-        samus_attackdash,
-        samus_attackdash_fx,
-        samus_attacks4,
-        samus_attacks4_fx,
-        samus_attackhi4,
-        samus_attackhi4_fx,
-        samus_attackhi3,
-        samus_attackhi3_fx,
-        samus_bomb_game_regular,
-        samus_missile_game_homing,
-        samus_missile_game_hburst,
-        samus_specialairs,
-        samus_bomb_game_burst,
-        samus_bomb_game_burst_fx,
-        samus_specialhi_fx,
-        samus_throwf,
-        samus_throwf_fx,
-        samus_throwf_ex,
-        samus_attacklw4,
-        samus_attacklw4_fx,
-        samus_attackairhi,
-        samus_attackairhi_fx
-    );
-     
-    smashline::install_agent_frames!(
-        supermissile_frame,
-        samus_frame,
-        missile_frame,
-        cshot_frame
-    );
-    
+    Agent::new("samus")
+        .game_acmd("game_attackdash", samus_attackdash, Priority::Low)
+        .effect_acmd("effect_attackdash", samus_attackdash_fx, Priority::Low)
+        .game_acmd("game_attackairhi", samus_attackairhi, Priority::Low)
+        .effect_acmd("effect_attackairhi", samus_attackairhi_fx, Priority::Low)
+        .game_acmd("game_attacks4", samus_attacks4, Priority::Low)
+        .effect_acmd("effect_attacks4", samus_attacks4_fx, Priority::Low)
+        .game_acmd("game_attackhi4", samus_attackhi4, Priority::Low)
+        .effect_acmd("effect_attackhi4", samus_attackhi4_fx, Priority::Low)
+        .game_acmd("game_attacklw4", samus_attacklw4, Priority::Low)
+        .effect_acmd("effect_attacklw4", samus_attacklw4_fx, Priority::Low)
+        .game_acmd("game_attackhi3", samus_attackhi3, Priority::Low)
+        .effect_acmd("effect_attackhi3", samus_attackhi3_fx, Priority::Low)
+        .game_acmd("game_throwf", samus_throwf, Priority::Low)
+        .effect_acmd("effect_throwf", samus_throwf_fx, Priority::Low)
+        .expression_acmd("expression_throwf", samus_throwf_ex, Priority::Low)
+        .effect_acmd("effect_specialairhi", samus_specialhi_fx, Priority::Low)
+        .game_acmd("game_specialairs", samus_specialairs, Priority::Low)
+        //.status(smashline::Main,*FIGHTER_STATUS_KIND_SPECIAL_HI, samus_specialhi_main)
+        .on_line(smashline::Main, samus_frame)
+        .install();
+    Agent::new("samus_bomb")
+        .game_acmd("game_fall", samus_bomb_game_regular, Priority::Low)
+        .game_acmd("game_burstattack", samus_bomb_game_burst, Priority::Low)
+        .effect_acmd("effect_burstattack", samus_bomb_game_burst_fx, Priority::Low)
+        .status(smashline::Pre, *WEAPON_SAMUS_BOMB_STATUS_KIND_FALL, samus_bomb_start_pre)
+        .status(smashline::Main, *WEAPON_SAMUS_BOMB_STATUS_KIND_FALL, samus_bomb_start_main)
+        .status(smashline::Init, *WEAPON_SAMUS_BOMB_STATUS_KIND_FALL, samus_bomb_fall_init)
+        .status(smashline::Init, *WEAPON_SAMUS_BOMB_STATUS_KIND_BURST_ATTACK, samus_bomb_hburst_init)
+        .install();
+    Agent::new("samus_supermissile")
+        .status(smashline::Main, *WEAPON_SAMUS_SUPERMISSILE_STATUS_KIND_READY, samus_supermissile_start_main)
+        .on_line(smashline::Main, supermissile_frame)
+        .install();
+    Agent::new("samus_missile")
+        .game_acmd("game_homing", samus_missile_game_homing, Priority::Low)
+        .game_acmd("game_hburst", samus_missile_game_hburst, Priority::Low)
+        .status(smashline::Pre, *WEAPON_SAMUS_MISSILE_STATUS_KIND_HOMING, samus_missile_start_pre)
+        .status(smashline::Main, *WEAPON_SAMUS_MISSILE_STATUS_KIND_HOMING, samus_missile_start_main)
+        .status(smashline::Exec, *WEAPON_SAMUS_MISSILE_STATUS_KIND_HOMING, samus_missile_start_exec)
+        .status(smashline::Pre, *WEAPON_SAMUS_MISSILE_STATUS_KIND_H_BURST, samus_missile_hburst_pre)
+        .status(smashline::Main, *WEAPON_SAMUS_MISSILE_STATUS_KIND_H_BURST, samus_missile_hburst_main)
+        .on_line(smashline::Main, missile_frame)
+        .install();
+    Agent::new("samus_cshot")
+        .on_line(smashline::Main, cshot_frame)
+        .install();
+    Agent::new("samus_gbeam")
+        .effect_acmd("effect_catch", samus_gbeam_catch, Priority::Low)
+		.install();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 pub fn show_mesh(mesh_name : &str, fighter : &mut L2CFighterCommon){
     unsafe { 
@@ -1384,6 +1441,7 @@ pub fn should_go_into_boomerang(status : i32, prev_status : i32, prev_prev_statu
     
 }
 
+
 pub fn should_go_into_rolling_shield(status : i32, prev_status : i32, prev_prev_status:i32) -> bool {
     return (status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2A && prev_status != FIGHTER_SAMUS_STATUS_KIND_SPECIAL_AIR_LW ) ||
      (status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2G && prev_status != FIGHTER_SAMUS_STATUS_KIND_SPECIAL_GROUND_LW )
@@ -1397,22 +1455,70 @@ pub fn should_go_into_flash_laser(status : i32, prev_status : i32, prev_prev_sta
     
 }
 
+
 pub fn should_go_into_metal_anchor(status : i32, prev_status : i32, prev_prev_status:i32) -> bool {
-    return  (status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_AIR_LW 
+    return  status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_AIR_LW 
         && prev_prev_status != FIGHTER_STATUS_KIND_SPECIAL_HI 
-        && prev_status != FIGHTER_STATUS_KIND_SPECIAL_HI);
+        && prev_status != FIGHTER_STATUS_KIND_SPECIAL_HI;
     
 }
 
 pub fn should_cancel_metal_anchor(status : i32, prev_status : i32, situation:i32) -> bool {
-    return  (status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2A 
+    return  status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2A 
         && prev_status == FIGHTER_SAMUS_STATUS_KIND_SPECIAL_AIR_LW
-        && situation == SITUATION_KIND_GROUND);
+        && situation == SITUATION_KIND_GROUND;
 }
 
 pub fn should_slow_metal_anchor_landing(status : i32, prev_status : i32) -> bool {
     return  status == FIGHTER_STATUS_KIND_LANDING_ATTACK_AIR && prev_status ==FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2A;
-    
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+// Game acmd script
+unsafe extern "C" fn example_acmd_script(agent: &mut L2CAgentBase) {
+    
+}
+
+// Char opff, Global opff
+unsafe extern "C" fn fighter_frame(fighter: &mut L2CFighterCommon) {
+    unsafe {
+        
+    }
+}
+
+// Status script
+unsafe extern "C" fn example_status_script(fighter: &mut L2CFighterCommon) -> L2CValue {
+    0.into()
+}
+
+
+
+
+
+pub fn install() {
+    Agent::new("mario")
+        .game_acmd("game_ATTACK_NAME_HERE", example_acmd_script, Default) // Game acmd script
+        .on_line(Main, fighter_frame) // Char opff
+        .status(Main, *FIGHTER_MARIO_STATUS_KIND_SPECIAL_LW_CHARGE, example_status_script) // Status script
+        .install();
+    Agent::new("fighter")
+        .on_line(Main, fighter_frame) // Global opff
+        .install();
+}
+*/

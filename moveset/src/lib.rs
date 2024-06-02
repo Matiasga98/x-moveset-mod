@@ -4,22 +4,22 @@
 )]
 #![allow(
     unused_imports,
-    unused_parens,
 	unused_macros,
 	unused_variables,
 	unused_assignments,
+	unused_unsafe,
 	non_upper_case_globals,
 	non_snake_case,
-	dead_code
+    clippy::borrow_interior_mutable_const,
 )]
 
-
 mod samus;
-mod roy;
-
+mod chrom;
 
 #[skyline::main(name = "smashline_test")]
 pub fn main() {
     samus::install();
-    roy::install();
+	//chrom::install();
+	//smashline::clone_weapon("pacman", "trampoline", "samus", "lightbeam", true);	
+	//smashline::clone_weapon("sonic", "gimmickjump", "samus", "lightbeam", true);
 }
