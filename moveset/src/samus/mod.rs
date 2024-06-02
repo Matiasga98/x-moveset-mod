@@ -11,7 +11,7 @@ use {
 };
 use std::ops::Neg;
 
-use smash::lib::L2CValue;
+use smash::{lib::L2CValue, app::lua_bind::EffectModule::is_exist_effect};
 
 #[acmd_script( agent = "samus", script = "game_attackdash", category = ACMD_GAME, low_priority )]
 unsafe fn samus_attackdash(agent: &mut L2CAgentBase) {
@@ -312,6 +312,7 @@ unsafe extern "C" fn samus_attacklw4_fx(agent: &mut L2CAgentBase) {
     }
     frame(agent.lua_state_agent, 23.0);
     macros::EFFECT_OFF_KIND(agent, Hash40::new("samus_gbeam_lightning"), false, false);
+
 }
 
 
@@ -836,7 +837,7 @@ fn supermissile_frame(weapon: &mut L2CFighterBase)  {
 unsafe fn samus_missile_game_homing(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 1.0);
     if macros::is_excute(agent) {
-        macros::ATTACK(agent, 0, 0, Hash40::new("top"), 8.0, 70, 40, 0, 80,
+        macros::ATTACK(agent, 0, 0, Hash40::new("top"), 4.0, 70, 40, 0, 80,
          7.0, 0.0, 0.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_SPEED, false, -4, 0.0, 0, true, false, false, false, false, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_normal"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_KICK, *ATTACK_REGION_OBJECT);
     }
     
@@ -1077,6 +1078,58 @@ fn missile_frame(weapon: &mut L2CFighterBase)  {
 }
 
 
+static mut cshot_x: f32 = 0.0;
+static mut cshot_y: f32 = 0.0;
+static mut cshot_shooting: bool = false;
+static mut cshot_frames: i32 = 0;
+static mut cshot_charge : f32 = 0.0;
+static mut cshot_effect : u64  = 0;
+static mut cshot_msg : u64 = 0;
+#[weapon_frame( agent = WEAPON_KIND_SAMUS_CSHOT )]
+fn cshot_frame(weapon: &mut L2CFighterBase)  {
+    unsafe {
+        let cshot_status = StatusModule::status_kind(weapon.module_accessor);
+        println!("status : {}",cshot_status);
+        cshot_charge = WorkModule::get_float(weapon.module_accessor, *WEAPON_SAMUS_CSHOT_INSTANCE_WORK_ID_FLOAT_CHARGE);
+        println!("charge : {}",cshot_charge);
+        cshot_x = PostureModule::pos_x(weapon.module_accessor);
+        cshot_y = PostureModule::pos_y(weapon.module_accessor);
+
+        EffectModule::kill_kind(weapon.module_accessor,  Hash40::new("samus_cshot_shot"), true, true);
+        ArticleModule::set_visibility_whole(weapon.module_accessor, *FIGHTER_SAMUS_GENERATE_ARTICLE_CSHOT, false, ArticleOperationTarget(*ARTICLE_OPE_TARGET_ALL));
+        if cshot_status == 1{
+            cshot_msg = 1;
+            cshot_shooting = true;
+            //EffectModule::kill_kind(weapon.module_accessor,  Hash40::new("sys_machstamp"), true, true);
+            let size = match cshot_charge{
+                c if c < 0.5             => 0.2,
+                c if c >= 0.5 && c < 1.0 => 0.5,
+                c if c >=1.0             => 1.0,
+                _                             => 20.0 
+            };
+            if EffectModule::is_exist_effect(weapon.module_accessor,cshot_effect as u32){
+                EffectModule::set_pos(weapon.module_accessor, cshot_effect as u32, &Vector3f{x: cshot_x, y: cshot_y, z: 0.0});
+            }
+            else{
+                let facing = PostureModule::lr(weapon.module_accessor);
+                cshot_effect = EffectModule::req_2d(weapon.module_accessor,  Hash40::new("sys_machstamp"), &Vector3f{x: cshot_x, y: cshot_y, z: 0.0}, &Vector3f{x: 0.0, y: 0.0, z: 1.55*facing}, size, 0);
+            }
+            match cshot_charge{ 
+                c if c < 0.5            => EffectModule::set_rgb(weapon.module_accessor,cshot_effect as u32, 1.0,1.0,0.0),
+                c if c >= 0.5 && c < 1.0 => EffectModule::set_rgb(weapon.module_accessor,cshot_effect as u32, 0.3,1.0,0.3),
+                c if c >=1.0            => EffectModule::set_rgb(weapon.module_accessor,cshot_effect as u32, 0.5,0.5,1.0),
+                _                            => println!("Something went wrong"),
+            }; 
+        }
+        else{
+            EffectModule::kill_kind(weapon.module_accessor,  Hash40::new("sys_machstamp"), true, true);
+            cshot_shooting = false;
+        }
+        println!("is shooting : {}",cshot_shooting);
+        
+    }
+}
+
 
 #[fighter_frame( agent = FIGHTER_KIND_SAMUS )]
 fn samus_frame(fighter: &mut L2CFighterCommon) {
@@ -1094,7 +1147,18 @@ fn samus_frame(fighter: &mut L2CFighterCommon) {
         let motion_frame = MotionModule::frame(fighter.module_accessor);
 
 
-        
+        ArticleModule::set_visibility_whole(fighter.module_accessor, *FIGHTER_SAMUS_GENERATE_ARTICLE_CSHOT, false, ArticleOperationTarget(*ARTICLE_OPE_TARGET_ALL));
+        if cshot_shooting{
+            if cshot_msg == 1 {
+                cshot_msg = 0;
+            }
+            else {
+                cshot_shooting = false;
+                cshot_msg = 0;
+                EffectModule::kill_kind(fighter.module_accessor,  Hash40::new("sys_machstamp"), true, true);
+                EffectModule::kill(fighter.module_accessor, cshot_effect as u32, true, true);
+            }
+        }
 
         if motion == smash::hash40("special_air_s") && motion_frame <= 70.0{
             show_mesh("anvil1",fighter);
@@ -1155,6 +1219,11 @@ fn samus_frame(fighter: &mut L2CFighterCommon) {
             missile_frames = 0;
         }
 
+        if missile_alive && missile_frames < 180{
+            
+        }
+
+
         if should_go_into_web_jump(x_status,prev_status,prev_prev_status) {
             println!("BOMB JUMP INTO SP HI");
             StatusModule::change_status_request_from_script(fighter.module_accessor, FIGHTER_STATUS_KIND_SPECIAL_HI.into(), false.into());
@@ -1211,10 +1280,10 @@ unsafe fn samus_gbeam_catch(agent: &mut L2CAgentBase) {
     
 }
 
-#[smashline::installer]
+//#[smashline::installer]
 pub fn install() {
     //smashline::install_agent_frames!( );
-    /*
+    
     install_status_scripts!(
 		samus_bomb_start_pre,
 		samus_bomb_start_main,
@@ -1227,9 +1296,8 @@ pub fn install() {
         samus_missile_hburst_pre,
         samus_missile_hburst_main,
     );
-    */
+    
     smashline::install_acmd_scripts!(
-        /* 
         samus_attackdash,
         samus_attackdash_fx,
         samus_attacks4,
@@ -1248,19 +1316,19 @@ pub fn install() {
         samus_throwf,
         samus_throwf_fx,
         samus_throwf_ex,
-        */
         samus_attacklw4,
         samus_attacklw4_fx,
         samus_attackairhi,
         samus_attackairhi_fx
     );
-    /*
+     
     smashline::install_agent_frames!(
         supermissile_frame,
         samus_frame,
         missile_frame,
+        cshot_frame
     );
-    */
+    
 }
 
 pub fn show_mesh(mesh_name : &str, fighter : &mut L2CFighterCommon){

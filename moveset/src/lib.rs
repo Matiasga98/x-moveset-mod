@@ -3,15 +3,23 @@
     proc_macro_hygiene
 )]
 #![allow(
-    unused_macros
+    unused_imports,
+    unused_parens,
+	unused_macros,
+	unused_variables,
+	unused_assignments,
+	non_upper_case_globals,
+	non_snake_case,
+	dead_code
 )]
 
 
 mod samus;
-
+mod roy;
 
 
 #[skyline::main(name = "smashline_test")]
 pub fn main() {
     samus::install();
+    roy::install();
 }
