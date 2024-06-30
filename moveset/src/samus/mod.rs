@@ -1340,7 +1340,6 @@ pub fn install() {
         .expression_acmd("expression_throwf", samus_throwf_ex, Priority::Low)
         .effect_acmd("effect_specialairhi", samus_specialhi_fx, Priority::Low)
         .game_acmd("game_specialairs", samus_specialairs, Priority::Low)
-        //.status(smashline::Main,*FIGHTER_STATUS_KIND_SPECIAL_HI, samus_specialhi_main)
         .on_line(smashline::Main, samus_frame)
         .install();
     Agent::new("samus_bomb")
@@ -1371,20 +1370,8 @@ pub fn install() {
         .install();
     Agent::new("samus_gbeam")
         .effect_acmd("effect_catch", samus_gbeam_catch, Priority::Low)
-		.install();
+	.install();
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1472,53 +1459,3 @@ pub fn should_cancel_metal_anchor(status : i32, prev_status : i32, situation:i32
 pub fn should_slow_metal_anchor_landing(status : i32, prev_status : i32) -> bool {
     return  status == FIGHTER_STATUS_KIND_LANDING_ATTACK_AIR && prev_status ==FIGHTER_SAMUS_STATUS_KIND_SPECIAL_S2A;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-// Game acmd script
-unsafe extern "C" fn example_acmd_script(agent: &mut L2CAgentBase) {
-    
-}
-
-// Char opff, Global opff
-unsafe extern "C" fn fighter_frame(fighter: &mut L2CFighterCommon) {
-    unsafe {
-        
-    }
-}
-
-// Status script
-unsafe extern "C" fn example_status_script(fighter: &mut L2CFighterCommon) -> L2CValue {
-    0.into()
-}
-
-
-
-
-
-pub fn install() {
-    Agent::new("mario")
-        .game_acmd("game_ATTACK_NAME_HERE", example_acmd_script, Default) // Game acmd script
-        .on_line(Main, fighter_frame) // Char opff
-        .status(Main, *FIGHTER_MARIO_STATUS_KIND_SPECIAL_LW_CHARGE, example_status_script) // Status script
-        .install();
-    Agent::new("fighter")
-        .on_line(Main, fighter_frame) // Global opff
-        .install();
-}
-*/
